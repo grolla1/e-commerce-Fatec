@@ -1,8 +1,9 @@
 <?php
 include("./config.inc.php");
 include("./session.php");
-validaSessao();
+validaSessaoAdmin();
 include("../header.php");
+include("../sidebar.php");
 include("./menu.php");
 ?>
 

@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				'" . $_POST["phone"] . "',
 				'" . $_POST["username"] . "',
 				PASSWORD('" . $_POST["password"] . "'),
-				'Y',
+				'N',
 				'Y',
 				'N',
 				'" . $id_address . "'
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($result) {
 			if (contaValida($_POST["username"], $_POST["password"])) {
 				registraConta($_POST["username"]);
-				header("Location: /sistema/admin/index.php");
+				header("Location: /sistema/user/index.php");
 				exit;
 			}
 		}

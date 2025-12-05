@@ -15,7 +15,9 @@ function contaValida($username, $password) {
 }
 
 function registraConta($username) {
-	session_start();
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
 	session_unset();
 	$link = mysqli_connect("localhost", "root", "", "sistema");
 	$sql = "SELECT id_account FROM account WHERE username = '".$username."'";
@@ -28,7 +30,9 @@ function registraConta($username) {
 }
 
 function logout() {
-	session_start();
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
 	session_unset();
 	session_destroy();
 	header("Location: /sistema/user/login.php");
@@ -36,7 +40,9 @@ function logout() {
 }
 
 function validaSessao() {
-	session_start();
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
 	if (empty($_SESSION["CONTA_ID"])) {
 		header("Location: /sistema/user/login.php");
 		exit;

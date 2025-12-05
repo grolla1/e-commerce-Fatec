@@ -39,7 +39,7 @@ include("../header.php");
         <button type="submit" name="submit">Entrar</button>
 
         <div class="register-link">
-            <p>Não tem uma conta? <a href="/sistema/admin/register.php">Registre-se</a></p>
+            <p>Não tem uma conta? <a href="/sistema/user/register.php">Registre-se</a></p>
         </div>
 
     </form>

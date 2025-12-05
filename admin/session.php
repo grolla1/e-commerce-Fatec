@@ -15,7 +15,9 @@ function contaValida($username, $password) {
 }
 
 function registraConta($username) {
-	session_start();
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
 	session_unset();
 	$link = mysqli_connect("localhost", "root", "", "sistema");
 	$sql = "SELECT id_account FROM account WHERE username = '".$username."'";
@@ -28,7 +30,9 @@ function registraConta($username) {
 }
 
 function logout() {
-	session_start();
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
 	session_unset();
 	session_destroy();
 	header("Location: /sistema/admin/login.php");
@@ -36,11 +40,41 @@ function logout() {
 }
 
 function validaSessao() {
-	session_start();
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
 	if (empty($_SESSION["CONTA_ID"])) {
 		header("Location: /sistema/admin/login.php");
 		exit;
 	}
+}
+
+function validaSessaoAdmin() {
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
+	if (empty($_SESSION["CONTA_ID"])) {
+		header("Location: /sistema/admin/login.php");
+		exit;
+	}
+	
+	// Verifica se o usuário é administrador
+	$link = mysqli_connect("localhost", "root", "", "sistema");
+	$id_account = intval($_SESSION["CONTA_ID"]);
+	$sql = "SELECT admin FROM account WHERE id_account = $id_account";
+	$result = mysqli_query($link, $sql);
+	
+	if ($result) {
+		$row = mysqli_fetch_assoc($result);
+		if ($row && $row["admin"] != "Y") {
+			echo "<script>alert('Acesso negado! Você não possui permissão de administrador.'); window.location.href = '/sistema/';</script>";
+			exit;
+		}
+	} else {
+		echo "<script>alert('Erro ao verificar permissões.'); window.location.href = '/sistema/';</script>";
+		exit;
+	}
+	mysqli_close($link);
 }
 
 function validaUserProduto() {
@@ -77,5 +111,27 @@ function validaUserProduto() {
 		echo "<script>alert('O usuário não tem permissão neste item.'); window.location.href = '/sistema/admin/prod/';</script>";
 		exit;
 	}
+}
+
+function isUserAdmin() {
+	if (session_status() === PHP_SESSION_NONE) {
+    	session_start();
+	}
+	if (empty($_SESSION["CONTA_ID"])) {
+		return false;
+	}
+	
+	$link = mysqli_connect("localhost", "root", "", "sistema");
+	$id_account = intval($_SESSION["CONTA_ID"]);
+	$sql = "SELECT admin FROM account WHERE id_account = $id_account";
+	$result = mysqli_query($link, $sql);
+	
+	if ($result) {
+		$row = mysqli_fetch_assoc($result);
+		mysqli_close($link);
+		return $row && $row["admin"] == "Y";
+	}
+	mysqli_close($link);
+	return false;
 }
 ?>

@@ -1,8 +1,11 @@
 <?php
 include("./config.inc.php");
 include("../header.php");
+include("../sidebar.php");
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (empty($_SESSION["CONTA_ID"])) {
     echo '<a href="/sistema/user/login.php" style="color: black;">Login</a>';
 } else {
