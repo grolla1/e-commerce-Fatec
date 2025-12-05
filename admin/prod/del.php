@@ -3,7 +3,9 @@
 include("../config.inc.php");
 include("../session.php");
 validaSessao();
- 
+validaUserProduto();
+
+// caso o produto seja do user, continua
 $link = mysqli_connect("localhost", "root", "", "sistema");
 if (!$link) {
     die("Erro de conexão: " . mysqli_connect_error());

@@ -2,6 +2,7 @@
 include("../config.inc.php");
 include("../session.php");
 validaSessao();
+validaUserProduto();
 
 $link = mysqli_connect("localhost", "root", "", "sistema");
 if (!$link) {

@@ -1,4 +1,4 @@
-CREATE TABLE `adress` (
+CREATE TABLE `address` (
   `id_address` int(11) PRIMARY KEY AUTO_INCREMENT,
   `street` varchar(255) NOT NULL,
   `number` varchar(20) NOT NULL,
@@ -9,10 +9,10 @@ CREATE TABLE `adress` (
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT into `adress` (`street`, `number`, `city`, `state`, `zip_code`, `country`) VALUES
+INSERT into `address` (`street`, `number`, `city`, `state`, `zip_code`, `country`) VALUES
 ('Rua A', '123', 'Cidade X', 'ST', '12345-678', 'País Y');
 
---------------------------------------------------
+-- ------------------------------------------------
 
 CREATE TABLE `account` (
   `id_account` int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE `account` (
   `seller` char(1) not null DEFAULT 'N',
   `id_address` int(11) not null,
 
-  CONSTRAINT `fk_account_address` FOREIGN KEY (`id_address`) REFERENCES `adress`(`id_address`),
+  CONSTRAINT `fk_account_address` FOREIGN KEY (`id_address`) REFERENCES `address`(`id_address`),
   CONSTRAINT `unique_email` unique (`email`),
   CONSTRAINT `unique_username` unique (`username`),
   CONSTRAINT `check_phone_length` CHECK (LENGTH(`phone`) >= 8),
@@ -85,7 +85,7 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`name`, `sell_price`, `buy_price`, `stock`, `image`, `description`,`active`, `id_account`, `id_category`) VALUES
 ('Mochila', 199.00, 150.00, 10, 'mochila.jpg', 'Mochila de alta qualidade', 'Y', 1, 1);
 
------------------------------------------------------
+-- ---------------------------------------------------
 
 CREATE TABLE `sale` (
   `id_sale` int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -104,4 +104,4 @@ CREATE TABLE `sale_product` (
   CONSTRAINT `pk_sale_product` PRIMARY KEY (`id_sale`, `id_product`),
   CONSTRAINT `fk_sale_product_sale` FOREIGN KEY (`id_sale`) REFERENCES `sale`(`id_sale`),
   CONSTRAINT `fk_sale_product_product` FOREIGN KEY (`id_product`) REFERENCES `product`(`id_product`)
-)
+);

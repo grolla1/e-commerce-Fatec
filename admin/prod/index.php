@@ -19,8 +19,15 @@ include("../menu.php");
 		<th>Ação</th>
 	</tr>
 	<?php
+	$default_id = isset($id_conta)
+    	? $id_conta
+    	: (isset($_SESSION['id'])
+        	? $_SESSION['id']
+        	: (isset($_SESSION['CONTA_ID']) ? $_SESSION['CONTA_ID'] : ''));
+
+
 	$link = mysqli_connect("localhost", "root", "", "sistema");
-	$sql = "SELECT id_product, name, sell_price, description FROM product ORDER BY name;";
+	$sql = "SELECT id_product, name, sell_price, description, id_account FROM product ORDER BY name;";
 	$result = mysqli_query($link, $sql);
 	while ($row = mysqli_fetch_assoc($result)) {
 		?>
@@ -29,9 +36,13 @@ include("../menu.php");
 			<td><?=$row["sell_price"];?></td>
 			<td><?=$row["description"];?></td>
 			<td>
-				<a href="/sistema/admin/prod/edit.php?id=<?=$row["id_product"];?>" style="color: black;">Editar</a> |
-				<a href="/sistema/admin/prod/del.php?id=<?=$row["id_product"];?>" style="color: black;">Excluir</a>
-			</td>
+    		<?php if ($row["id_account"] == $default_id) { ?>
+        		<a href="/sistema/admin/prod/edit.php?id=<?= $row['id_product']; ?>" style="color: black;">Editar</a> |
+        		<a href="/sistema/admin/prod/del.php?id=<?= $row['id_product']; ?>" style="color: black;">Excluir</a>
+			<?php } else { ?>
+        		<span style="color: gray;">(Sem permissão)</span>
+    		<?php } ?>
+</td>
 		</tr>
 		<?php
 	}

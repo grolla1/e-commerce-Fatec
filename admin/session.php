@@ -42,4 +42,40 @@ function validaSessao() {
 		exit;
 	}
 }
+
+function validaUserProduto() {
+	// Recupera o ID do usuário logado
+	$default_id = isset($id_conta)
+		? $id_conta
+		: (isset($_SESSION['id'])
+			? $_SESSION['id']
+			: (isset($_SESSION['CONTA_ID']) ? $_SESSION['CONTA_ID'] : '')) ;
+
+	// Verifica se existe ID
+	if (!isset($_GET['id']) || empty($_GET['id'])) {
+		echo "<script>alert('ID inválido.'); window.location.href = '/sistema/admin/prod/';</script>";
+		exit;
+	}
+
+	$id_product = intval($_GET['id']);
+
+	// Busca o produto para validar o dono
+	$linkVal = mysqli_connect("localhost", "root", "", "sistema");
+
+	$sql = "SELECT id_account FROM product WHERE id_product = $id_product LIMIT 1;";
+	$result = mysqli_query($linkVal, $sql);
+
+	if (!$result || mysqli_num_rows($result) == 0) {
+		echo "<script>alert('Produto não encontrado.'); window.location.href = '/sistema/admin/prod/';</script>";
+		exit;
+	}
+
+	$row = mysqli_fetch_assoc($result);
+
+	// Verifica se o produto pertence ao usuário
+	if ($row['id_account'] != $default_id) {
+		echo "<script>alert('O usuário não tem permissão neste item.'); window.location.href = '/sistema/admin/prod/';</script>";
+		exit;
+	}
+}
 ?>

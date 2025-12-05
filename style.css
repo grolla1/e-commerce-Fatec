@@ -107,7 +107,7 @@ body {
 /* Efeito ao focar no campo */
 .input-group input:focus {
     outline: none;
-    border-color: #007bff; /* Cor da borda ao focar */
+    border-color: #a6afb9; /* Cor da borda ao focar */
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
@@ -193,4 +193,65 @@ button[type="submit"]:active {
 }
 .dropdown-list div:hover {
   background: #f0f0f0;
+}
+
+.carrinho-container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.item-name {
+    font-size: 16px;
+    color: #333;
+}
+
+.remove-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    background: #dc3545;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.remove-btn:hover {
+    background: #b52a36;
+}
+.total-section {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.finalizar-btn {
+    margin-top: 20px;
+    display: block;
+    padding: 12px;
+    text-align: center;
+    background: #28a745;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.finalizar-btn:hover {
+    background: #1d7f34;
+}
+.sucesso {
+    padding: 12px;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    margin-bottom: 20px;
+    border-radius: 8px;
 }

@@ -13,43 +13,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$mensagem = "Username ou Password incorreto!";
 }
 
-
 include("../header.php");
 
 ?>
 
-<h3>LOGIN</h3>
-<a href="/sistema/user/register.php" style="color: black;">Registrar</a>
+<div class="login-container">
+    <form name="formLogin" method="POST" class="login-form">
 
-<form name="formLogin" method="POST">
-	<table>
-		<tr>
-			<td colspan="2" style="color: red;">
-				<?=isset($mensagem)?$mensagem:"&nbsp;";?>
-			</td>
-		</tr>
-		<tr>
-			<td>Username:</td>
-			<td>
-				<input type="text" name="username" value="<?=isset($username)?$username:"";?>">
-			</td>
-		</tr>
-		<tr>
-			<td>Password:</td>
-			<td>
-				<input type="password" name="password" value="<?=isset($password)?$password:"";?>">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="submit" name="submit" value="Submit">
-			</td>
-		</tr>
-	</table>
-	<br>
-	<br>
-	<a href="/sistema/user/index.php" style="color: black;">Entrar sem Login</a>
-</form>
+        <h2>LOGIN</h2>
+
+        <div class="error-message">
+            <?=isset($mensagem)?$mensagem:"&nbsp;";?>
+        </div>
+
+        <div class="input-group">
+            <label for="username">Usuário</label>
+            <input type="text" id="username" name="username" value="<?=isset($username)?$username:"";?>" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" value="<?=isset($password)?$password:"";?>" required>
+        </div>
+
+        <button type="submit" name="submit">Entrar</button>
+
+        <div class="register-link">
+            <p>Não tem uma conta? <a href="/sistema/admin/register.php">Registre-se</a></p>
+        </div>
+
+    </form>
+</div>
+
 <script language="JavaScript" type="text/javascript">
 	<!--
 	if (document.formLogin.username.value) {
